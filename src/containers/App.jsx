@@ -7,22 +7,18 @@ import './App.css'
 
 function App() {
 
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         robots: [],
-    //         searchfield: '',
-    //     };
-    // }
-
     const [ robots, setRobots ] = useState([])
     const [ searchfield, setSearchfield ] = useState('')
+    // const [ count, setCount ] = useState(0)
 
-    // componentDidMount() {
-    //     fetch('https://jsonplaceholder.typicode.com/users')
-    //         .then(response => response.json())
-    //         .then(users => this.setState({ robots: users }))    // update state -> render()
-    // }
+
+    useEffect(()=> {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(users => { setRobots(users) }) 
+            // console.log(count)
+    }, []) // only run if array is empty === only run first time 
+    // }, [count]) // onlu run if count changes.
 
 
     const onSearchChange = (event) => {
@@ -43,7 +39,9 @@ function App() {
         (
             <div className='tc'>
                 <h1 className='f1'>RoboFriends</h1>
-                <SearchBox searchChange={this.onSearchChange} />
+                {/* <button onClick={()=>setCount(count+1)}>Click Me!</button>
+                <span>{count}</span> */}
+                <SearchBox searchChange={ onSearchChange } />
                 <Scroll>
                     <CardList robots={filteredRobots} />
                 </Scroll>
